@@ -1080,7 +1080,7 @@ async function triggerBlow(){
   const canvas=document.getElementById('cake3d');
   drawCake3D(false);
   drawSmoke(canvas);
-  setTimeout(()=>{
+  setTimeout(async ()=>{
     launchConfetti();
     spawnBalloons();
     if(S.eventType==='Anniversary') spawnHearts();
