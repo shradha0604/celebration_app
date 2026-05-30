@@ -1070,7 +1070,7 @@ async function startMicDetection(){
     document.getElementById('mic-ring').innerHTML='<div style="font-size:2.5rem;opacity:.4">🎤</div>';
   }
 }
-function triggerBlow(){
+async function triggerBlow(){
   if(S.celebDone) return;
   S.celebDone=true;S.candlesLit=false;
   if(S.micStream) S.micStream.getTracks().forEach(t=>t.stop());
@@ -1087,11 +1087,42 @@ function triggerBlow(){
     showWishes();
     playFanfare();
     document.getElementById('celeb-complete').style.display='block';
-    const link=`https://celebrate.moments/c/${S.shareId}`;
-    document.getElementById('share-link').textContent=link;
-    drawQR(link);
-    document.getElementById('celeb-complete').scrollIntoView({behavior:'smooth',block:'center'});
-  },800);
+
+try {
+
+  const docRef = await db.collection("celebrations").add({
+    eventType: S.eventType,
+    customTitle: S.customTitle,
+    name: S.name,
+    title: S.title,
+    message: S.message,
+    quote: S.quote,
+    date: S.date,
+    cakeShape: S.cakeShape,
+    cakeColor: S.cakeColor,
+    frostingColor: S.frostingColor,
+    candles: S.candles,
+    candleType: S.candleType,
+    photos: S.photos,
+    createdAt: new Date()
+  });
+
+  const link =
+    `https://celebration-app-virid.vercel.app/?id=${docRef.id}`;
+
+  document.getElementById('share-link').textContent = link;
+
+  drawQR(link);
+
+} catch(err) {
+  console.error(err);
+  alert("Failed to create share link");
+}
+
+document.getElementById('celeb-complete').scrollIntoView({
+  behavior:'smooth',
+  block:'center'
+});
 }
 
 /* ============================================================
