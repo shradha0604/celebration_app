@@ -220,7 +220,24 @@ input[type=range].vol::-webkit-slider-thumb{-webkit-appearance:none;width:14px;h
   <input type="range" class="vol" min="0" max="1" step="0.05" value="0.5" oninput="setVol(this.value)">
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
 <script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC6GyqYI7vESXDsxC9IpK88CNNczjXtbeI",
+  authDomain: "celebrate-moments-9691a.firebaseapp.com",
+  projectId: "celebrate-moments-9691a",
+  storageBucket: "celebrate-moments-9691a.firebasestorage.app",
+  messagingSenderId: "595471870965",
+  appId: "1:595471870965:web:9344f0b0451938015f4ebc",
+  measurementId: "G-PNRYZ5057F"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
 /* ============================================================
    STATE
    ============================================================ */
